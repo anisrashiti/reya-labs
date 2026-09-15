@@ -16,7 +16,7 @@ The static production export is `out/`.
 
 ## Approved hero
 
-Hero geometry, wordmark, typography, CTAs, metadata and cloud positioning are preserved. Cloud opacity changes only from 0.18 to 0.2025 (+12.5%). Existing navigation and CTAs now link to the relevant homepage sections. The hero wrapper is a semantic section inside the page's single main landmark.
+Hero geometry, wordmark, typography, CTAs, metadata and cloud positioning are preserved. Cloud opacity is 0.405, doubled from the previous 0.2025 setting. Existing navigation and CTAs now link to the relevant homepage sections. The hero wrapper is a semantic section inside the page's single main landmark.
 
 ## Homepage structure
 

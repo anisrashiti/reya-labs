@@ -59,7 +59,7 @@ button[aria-disabled='true'] {
   z-index: -2;
   pointer-events: none;
   background: url('/images/cloud-atmosphere.webp') 5vw 14vh / 100% 75% no-repeat;
-  opacity: 0.2025;
+  opacity: 0.405;
   animation: atmosphere-in 2.1s ease-out both;
 }
 .hero::after {
@@ -300,7 +300,7 @@ button[aria-disabled='true'] {
     opacity: 0;
   }
   to {
-    opacity: 0.2025;
+    opacity: 0.405;
   }
 }
 @keyframes reveal-in {
