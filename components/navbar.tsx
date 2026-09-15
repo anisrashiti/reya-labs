@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { navigation } from '@/config/navigation';
-import { DestinationLink } from './destination-link';
 import { Wordmark } from './wordmark';
 
 export function Navbar() {
@@ -57,14 +56,14 @@ export function Navbar() {
         className={`nav-links${open ? ' is-open' : ''}`}
       >
         {navigation.map(({ label, href }) => (
-          <DestinationLink
+          <a
             key={label}
-            label={label}
             href={href}
             className="nav-link"
+            onClick={() => setOpen(false)}
           >
             {label}
-          </DestinationLink>
+          </a>
         ))}
         <span className="nav-point" aria-hidden="true" />
       </nav>

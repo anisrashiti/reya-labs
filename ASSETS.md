@@ -25,3 +25,7 @@ Constraints: No typography, UI, logos, watermark, blue tones, bright orange, glo
 ## Typography
 
 Supporting text uses self-hosted Inter Regular from Google Fonts (`public/fonts/inter-regular.ttf`). The SIL Open Font License is included in `public/fonts/OFL.txt`. Editorial metadata uses the system Courier New monospace font. The original reference font is unknown; Inter was selected for its close proportions.
+
+## Project previews
+
+No real Villa Ada, RUB Beton, or Mind Nexus screenshots were present in this repository. `components/project-preview.tsx` renders clearly labelled HTML preview placeholders, not screenshots or completed case studies. Replace them by adding images to the matching `public/projects/` folders and setting `image` plus `imageAlt` in `config/homepage.ts`. The placeholder's content stays illustrative and makes no claims about project outcomes or functionality.

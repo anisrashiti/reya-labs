@@ -54,7 +54,7 @@ function EditorialDetails() {
 
 export function Hero() {
   return (
-    <main id="main-content" className="hero">
+    <section className="hero" aria-label="Introduction">
       <div className="hero-atmosphere" aria-hidden="true" />
       <Navbar />
       <section className="hero-content" aria-labelledby="hero-heading">
@@ -83,6 +83,6 @@ export function Hero() {
       </section>
       <LocationBadge />
       <EditorialDetails />
-    </main>
+    </section>
   );
 }

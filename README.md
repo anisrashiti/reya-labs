@@ -1,41 +1,54 @@
 # REYA Labs
 
-A responsive reconstruction of the supplied REYA Labs homepage hero. Scope is limited to the foundation and hero: no later sections, pages, forms, or footer.
+Next.js App Router, TypeScript and Tailwind CSS. The homepage continues the approved hero with Work, Services, Process, About, Contact and a restrained footer.
 
-## Development
+## Run and validate
 
 ```powershell
 npm.cmd install
 npm.cmd run dev
-```
-
-## Validation and static export
-
-```powershell
-npm.cmd run typecheck
 npm.cmd run lint
+npm.cmd run typecheck
 npm.cmd run build
 ```
 
-The production export is written to `out/`.
+The static production export is `out/`.
 
-## Main files
+## Approved hero
 
-- `components/hero.tsx`: hero composition, location badge, editorial details.
-- `components/wordmark.tsx`: custom vector REYA lettering, drawn against the supplied reference.
-- `components/navbar.tsx`: responsive navigation with keyboard-operable mobile menu.
-- `components/cta-button.tsx`: shared CTA treatment.
-- `components/destination-link.tsx`: accessible future-destination controls.
-- `config/navigation.ts`: navigation and CTA destinations.
-- `app/globals.css`: responsive layout, palette, typography, and reduced-motion-aware entrances.
-- `app/layout.tsx`: metadata and document structure.
-- `ASSETS.md`: asset provenance and generation prompt.
+Hero geometry, wordmark, typography, CTAs, metadata and cloud positioning are preserved. Cloud opacity changes only from 0.18 to 0.2025 (+12.5%). Existing navigation and CTAs now link to the relevant homepage sections. The hero wrapper is a semantic section inside the page's single main landmark.
 
-## Scope and deliberate differences
+## Homepage structure
 
-The written brief overrides the reference's supporting copy and metadata: “built for modern businesses,” “BUILT / WITH / INTENT,” and “EST. 2026.” The supplied screenshot is a visual reference, never a page background.
+- `components/hero.tsx`: approved introductory section.
+- `components/work-section.tsx`: active project selection and desktop/mobile previews.
+- `components/project-preview.tsx`: real image rendering or explicitly labelled preview placeholders.
+- `components/services-section.tsx`: editorial service rows linking to Contact.
+- `components/process-section.tsx`: five-step sequence.
+- `components/about-section.tsx`: company description and expandable brand-name background.
+- `components/contact-section.tsx`: accessible inquiry form and visible delivery state.
+- `components/footer.tsx`: site navigation and location.
+- `components/page-motion.tsx`: one-time viewport reveals and reduced-motion handling.
+- `app/homepage.css`: all continuation styles, separate from the approved hero stylesheet.
+- `config/homepage.ts`: project, service and process content.
+- `config/navigation.ts`: homepage destinations.
 
-The REYA mark is custom SVG geometry. Supporting text uses self-hosted Inter and editorial metadata uses Courier New; no external font requests are made. Cloud contours are a generated approximation of the reference, dimmed and integrated with CSS.
+## Projects
 
-Work, Services, About, and Contact are intentionally not implemented. Their navigation controls and both CTAs are focusable, marked `aria-disabled`, and have no invented destination. Set the values in `config/navigation.ts` to real URLs/section anchors when that work is commissioned. The mobile menu opens, closes, and returns focus on Escape. The scroll caption is decorative until later homepage content exists.
+The routes `/work/villa-ada`, `/work/rub-beton` and `/work/mind-nexus` use the shared minimal shell in `app/work/[slug]/page.tsx`. They are not full case studies.
 
+No real project screenshots were supplied in this repository. The visible previews are labelled placeholders, not claimed screenshots. Add final screenshots under `public/projects/<slug>/`, then update each project's `image` and `imageAlt` in `config/homepage.ts`. A wide screenshot around 1600px across works well; previews use an approximately 1.24:1 crop on desktop. `ProjectPreview` renders a responsive image automatically when a path is configured.
+
+Desktop: pointer hover activates a row. Keyboard: Up/Down or Left/Right selects a project, Home/End jumps to the first/last project, and Tab moves to its View project link. Mobile: tap a row to show its preview and action inline.
+
+## Contact setup
+
+Set the real `email` and `submissionEndpoint` in `config/contact.ts`. Both are intentionally null.
+
+Validation and submission live in `lib/contact.ts`. The future endpoint must accept JSON `{ name, company, email, message }` and return `{ success: true }` only when the inquiry has been accepted. Add server-side validation, abuse protection and delivery handling in the receiving service before enabling it. The client reports failures and keeps the visitor's text.
+
+In the current unconnected state, submitting valid fields makes no network request, sends no message, stores no data, and explicitly tells the visitor nothing was sent. Fields remain populated. Only a confirmed successful response clears the form.
+
+## Assets and typography
+
+The hero uses the existing custom SVG wordmark, self-hosted Inter, and the existing generated cloud texture. See `ASSETS.md` for provenance. No additional stock photography or generated project screenshots have been introduced.

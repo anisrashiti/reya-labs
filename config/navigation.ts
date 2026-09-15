@@ -1,10 +1,8 @@
-// Supply real destinations when the later sections are commissioned.
-// null keeps a control keyboard discoverable without a broken link or fake action.
 export const destinations = {
-  work: null,
-  services: null,
-  about: null,
-  contact: null,
+  work: '#work',
+  services: '#services',
+  about: '#about',
+  contact: '#contact',
 } as const satisfies Record<string, string | null>;
 
 export const navigation = [
