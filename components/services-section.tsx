@@ -1,49 +1,5 @@
 import { services } from '@/config/homepage';
 import { SectionLabel } from './section-label';
 import { Arrow } from './arrow';
-
-export function ServicesSection() {
-  return (
-    <section
-      id="services"
-      className="home-section services-section"
-      aria-labelledby="services-heading"
-    >
-      <div className="section-heading" data-reveal>
-        <div>
-          <SectionLabel number="03">What we build</SectionLabel>
-          <h2 id="services-heading">
-            The right tools.
-            <br />
-            For your business.
-          </h2>
-        </div>
-      </div>
-      <div className="service-list">
-        {services.map((service) => (
-          <a
-            className="service-row"
-            href="#contact"
-            key={service.number}
-            data-reveal
-            aria-label={`Discuss ${service.title.toLowerCase()} with REYA Labs`}
-          >
-            <span className="service-index">{service.number}</span>
-            <h3>{service.title}</h3>
-            <div className="service-detail">
-              <p>{service.description}</p>
-              {service.examples.length > 0 && (
-                <ul>
-                  {service.examples.map((example) => (
-                    <li key={example}>{example}</li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <Arrow diagonal />
-          </a>
-        ))}
-      </div>
-    </section>
-  );
-}
+function Visual({ number }: { number: string }) { return <div className={`capability-visual visual-${number}`} aria-hidden="true"><div className="visual-register micro"><span>REYA / {number}</span><span>{number === '01' ? 'Interface' : number === '02' ? 'Interaction' : 'Integration'}</span></div><div className="visual-window"><div /><div /><div /><b>{number === '01' ? 'WEB' : number === '02' ? 'SYSTEM' : 'FLOW'}</b></div><div className="visual-foot micro"><span>Structure with purpose</span><span>+ + +</span></div></div>; }
+export function ServicesSection() { return <section id="services" className="services-section" aria-labelledby="services-heading"><div className="capabilities-heading"><SectionLabel number="02">What we build</SectionLabel><h2 id="services-heading">The right form.<br />For what comes next.</h2></div>{services.map(service => <article className="capability-chapter" key={service.number}><div className="capability-copy" data-reveal><span className="capability-number">/{service.number}</span><h3>{service.title}</h3><p>{service.description}</p><ul>{service.examples.map(example => <li key={example}>{example}</li>)}</ul><a className="text-link" href="#contact">Let�s talk <Arrow diagonal /></a></div><Visual number={service.number} /></article>)}</section>; }

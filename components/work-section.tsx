@@ -1,5 +1,4 @@
 'use client';
-
 import { useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 import { projects } from '@/config/homepage';
@@ -8,106 +7,21 @@ import { ProjectPreview } from './project-preview';
 import { SectionLabel } from './section-label';
 
 export function WorkSection() {
-  const [active, setActive] = useState(projects[0].slug);
+  const [active, setActive] = useState(0);
   const selectors = useRef<(HTMLButtonElement | null)[]>([]);
-  const project = projects.find((item) => item.slug === active) ?? projects[0];
-  function selectWithKeyboard(
-    event: KeyboardEvent<HTMLButtonElement>,
-    index: number,
-  ) {
-    let next: number;
-    if (event.key === 'ArrowDown' || event.key === 'ArrowRight')
-      next = (index + 1) % projects.length;
-    else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft')
-      next = (index - 1 + projects.length) % projects.length;
-    else if (event.key === 'Home') next = 0;
-    else if (event.key === 'End') next = projects.length - 1;
-    else return;
+  function move(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    const delta = event.key === 'ArrowDown' || event.key === 'ArrowRight' ? 1 : event.key === 'ArrowUp' || event.key === 'ArrowLeft' ? -1 : 0;
+    if (!delta && event.key !== 'Home' && event.key !== 'End') return;
     event.preventDefault();
-    setActive(projects[next].slug);
-    selectors.current[next]?.focus();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? projects.length - 1 : (index + delta + projects.length) % projects.length;
+    setActive(next); selectors.current[next]?.focus();
   }
-  return (
-    <section
-      id="work"
-      className="home-section work-section"
-      aria-labelledby="work-heading"
-    >
-      <div className="section-heading" data-reveal>
-        <div>
-          <SectionLabel number="02">Work</SectionLabel>
-          <h2 id="work-heading">Selected work.</h2>
-        </div>
-        <span className="section-aside">Websites &amp; digital products</span>
-      </div>
-      <div className="work-layout" data-reveal>
-        <fieldset
-          className="project-list"
-          aria-label="Select a project to preview"
-          aria-describedby="project-keyboard-help"
-        >
-          <p id="project-keyboard-help" className="sr-only">
-            Use the arrow keys to choose a project, then Tab to view it.
-          </p>
-          {projects.map((item, index) => (
-            <div
-              key={item.slug}
-              className={`project-entry${active === item.slug ? ' is-active' : ''}`}
-            >
-              <button
-                ref={(element) => {
-                  selectors.current[index] = element;
-                }}
-                tabIndex={active === item.slug ? 0 : -1}
-                onKeyDown={(event) => selectWithKeyboard(event, index)}
-                type="button"
-                className="project-selector"
-                aria-pressed={active === item.slug}
-                aria-label={`Preview ${item.name}`}
-                onPointerEnter={(event) => {
-                  if (
-                    event.pointerType === 'mouse' &&
-                    window.matchMedia('(hover: hover)').matches
-                  )
-                    setActive(item.slug);
-                }}
-                onFocus={() => setActive(item.slug)}
-                onClick={() => setActive(item.slug)}
-              >
-                <span className="project-index">{item.number}</span>
-                <span className="project-row-copy">
-                  <span className="project-name">{item.name}</span>
-                  <span className="project-category">
-                    {item.category} / {item.sector}
-                  </span>
-                </span>
-                <Arrow diagonal />
-              </button>
-              {active === item.slug && (
-                <div className="mobile-project-preview">
-                  <ProjectPreview project={item} />
-                  <a className="text-link" href={`/work/${item.slug}`}>
-                    View project <Arrow />
-                  </a>
-                </div>
-              )}
-            </div>
-          ))}
-        </fieldset>
-        <div className="desktop-project-preview">
-          <div key={project.slug} className="preview-transition">
-            <ProjectPreview project={project} />
-          </div>
-          <div className="preview-caption">
-            <span>
-              {project.number} / {project.name}
-            </span>
-            <a className="text-link" href={`/work/${project.slug}`}>
-              View project <Arrow />
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  const project = projects[active];
+  return <section id="work" className="work-section" aria-labelledby="work-heading">
+    <div className="work-heading" data-reveal><SectionLabel number="01">Selected work</SectionLabel><h2 id="work-heading">Ideas, made real.</h2><span className="micro">A selection of our work / 01�03</span></div>
+    <div className="work-layout" data-reveal>
+      <fieldset className="project-list"><legend className="sr-only">Select a project. Use arrow keys to choose a project.</legend>{projects.map((item, index) => <button key={item.slug} ref={el => { selectors.current[index] = el; }} type="button" className={`project-selector${active === index ? ' is-active' : ''}`} tabIndex={active === index ? 0 : -1} aria-pressed={active === index} onKeyDown={e => move(e, index)} onPointerEnter={e => { if (e.pointerType === 'mouse') setActive(index); }} onFocus={() => setActive(index)} onClick={() => setActive(index)}><span className="project-index">{item.number}</span><span className="project-row-copy"><span className="project-name">{item.name}</span><span className="project-category">{item.category} / {item.sector}</span></span><Arrow diagonal /></button>)}<p className="work-note">Different businesses.<br />The same attention to detail.</p></fieldset>
+      <div className="project-stage"><div key={project.slug} className="preview-transition"><ProjectPreview project={project} /></div><div className="preview-caption"><span className="micro" aria-live="polite">{project.number} / {project.name} / {project.category}</span><a className="text-link" href={`/work/${project.slug}`}>View project <Arrow /></a></div><div className="project-touch-controls"><span className="micro">Swipe to explore</span><button type="button" aria-label="Previous project" onClick={() => setActive((active + projects.length - 1) % projects.length)}>?</button><button type="button" aria-label="Next project" onClick={() => setActive((active + 1) % projects.length)}>?</button></div></div>
+    </div>
+  </section>;
 }

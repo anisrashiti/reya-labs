@@ -55,12 +55,14 @@ export function ContactSection() {
       className="home-section contact-section"
       aria-labelledby="contact-heading"
     >
-      <SectionLabel number="06">Contact</SectionLabel>
-      <h2 id="contact-heading" data-reveal>
-        Have something in mind?
-        <br />
-        <span>Let’s build it.</span>
-      </h2>
+      <div className="contact-finale">
+        <div className="brand-atmosphere" aria-hidden="true" />
+        <SectionLabel number="05">Your next chapter</SectionLabel>
+        <h2 id="contact-heading" data-reveal>
+          <span className="contact-question">Something<br />in mind?</span>
+          <a href="#project-form" className="contact-invitation">Let’s build it. <Arrow diagonal /></a>
+        </h2>
+      </div>
       <div className="contact-layout" data-reveal>
         <div className="contact-intro">
           <p>

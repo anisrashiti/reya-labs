@@ -1,0 +1,2 @@
+import { studio } from '@/config/homepage';
+export function PhilosophySection() { return <section className="philosophy-section" aria-labelledby="philosophy-heading"><p className="micro">The way we see it</p><h2 id="philosophy-heading" data-reveal><span>{studio.philosophy[0]}</span><span>Made to <em>matter.</em></span></h2><div className="interrupted-rule" aria-hidden="true" /><p className="philosophy-note">Useful by design.<br />Considered in every detail.</p></section>; }

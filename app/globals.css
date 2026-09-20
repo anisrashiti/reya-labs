@@ -9,6 +9,11 @@
   --font-mono: 'Courier New', monospace;
 }
 
+:root { --line: #34312d; --gutter: clamp(24px, 6.2vw, 120px); --ease: cubic-bezier(0.22, 0.7, 0.2, 1); }
+* { box-sizing: border-box; }
+.skip-link { position: fixed; top: 12px; left: 12px; padding: 16px 24px; background: var(--color-foreground); color: var(--color-background); z-index: 100; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+
 :root {
   color-scheme: dark;
   background: var(--color-background);
@@ -59,7 +64,9 @@ button[aria-disabled='true'] {
   z-index: -2;
   pointer-events: none;
   background: url('/images/cloud-atmosphere.webp') 5vw 14vh / 100% 75% no-repeat;
-  opacity: 0.65;
+  opacity: 0.36;
+  filter: saturate(0.35);
+  transform: translateY(var(--atmosphere-shift, 0px));
   animation: atmosphere-in 2.1s ease-out both;
 }
 .hero::after {
@@ -119,6 +126,7 @@ button[aria-disabled='true'] {
   display: none;
 }
 .hero-content {
+  transform: translateY(var(--hero-shift, 0px));
   position: absolute;
   top: 32.55%;
   left: 10.1%;
@@ -141,19 +149,21 @@ button[aria-disabled='true'] {
   display: block;
   width: 100%;
   height: auto;
-  animation: wordmark-in 1.1s 0.15s cubic-bezier(0.2, 0.7, 0.25, 1) both;
 }
+.hero-wordmark .wordmark-geometry { animation: wordmark-in 1s 0.12s var(--ease) both; }
+.hero-wordmark .wordmark-accent { animation: accent-in 0.65s 0.65s var(--ease) both; }
+@keyframes accent-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
 .trademark {
   position: absolute;
   top: 0;
-  right: 2.9%;
+  right: -4%;
   font-size: clamp(9px, 0.61vw, 12px);
   font-family: var(--font-sans);
   line-height: 1;
   animation: fade-in 0.7s 0.5s both;
 }
 .hero-labs {
-  color: var(--color-accent);
+  color: var(--color-foreground);
   font-size: clamp(24px, 1.92vw, 39px);
   line-height: 0.87;
   letter-spacing: 0.9em;
@@ -240,6 +250,7 @@ button[aria-disabled='true'] {
   background: var(--color-accent);
 }
 .editorial-details {
+  filter: opacity(var(--metadata-opacity, 1));
   position: absolute;
   inset-inline: 6.2%;
   bottom: 7.4%;
@@ -300,7 +311,7 @@ button[aria-disabled='true'] {
     opacity: 0;
   }
   to {
-    opacity: 0.65;
+    opacity: 0.36;
   }
 }
 @keyframes reveal-in {

@@ -6,6 +6,8 @@ import { AboutSection } from '@/components/about-section';
 import { ContactSection } from '@/components/contact-section';
 import { Footer } from '@/components/footer';
 import { PageMotion } from '@/components/page-motion';
+import { PhilosophySection } from '@/components/philosophy-section';
+import { SystemsSection } from '@/components/systems-section';
 
 export default function Home() {
   return (
@@ -13,7 +15,9 @@ export default function Home() {
       <main id="main-content">
         <Hero />
         <WorkSection />
+        <PhilosophySection />
         <ServicesSection />
+        <SystemsSection />
         <ProcessSection />
         <AboutSection />
         <ContactSection />

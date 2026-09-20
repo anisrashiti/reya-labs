@@ -1,22 +1,19 @@
-/** Drawn to match the approved geometric lettering, independent of font loading. */
+/** Geometric vector reconstruction of public/reya-final-logo.png. */
 export function Wordmark({ className }: { className?: string }) {
   return (
     <svg
       className={className}
-      viewBox="0 0 700 145"
+      viewBox="0 0 900 180"
       fill="currentColor"
       aria-hidden="true"
     >
-      <path
-        fillRule="evenodd"
-        d="M0 0h111c38 0 58 17 58 47 0 27-20 44-58 46l58 52h-43L69 94H31v51H0V0Zm31 26v43h77c20 0 31-7 31-22s-11-21-31-21H31Z"
-      />
-      <path d="M183 0h142v26H214v33h106v26H214v34h113v26H183V0Z" />
-      <path d="M330 0h37l72 90L511 0h38L455 116v29h-32v-29L330 0Z" />
-      <path
-        fillRule="evenodd"
-        d="M579 0h32l89 145h-35l-17-27H534l-17 27h-35L574 0h5Zm13 27-43 66h84l-41-66Z"
-      />
+      <g className="wordmark-geometry">
+        <path d="M0 0h113a51 51 0 0 1 0 102H77l70 78h-33L22 77h91a26 26 0 0 0 0-52H0Z" />
+        <path d="M249 0h160v25H249zM249 155h160v25H249z" />
+        <path d="M475 0h32l64 74 66-74h32l-86 96v84h-24V96Z" />
+        <path d="M688 180 797 0l100 180h-27L797 46l-81 134Z" />
+      </g>
+      <path className="wordmark-accent" fill="var(--color-accent)" d="M249 77h142v25H249z" />
     </svg>
   );
 }

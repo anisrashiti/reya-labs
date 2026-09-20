@@ -13,7 +13,7 @@ const inter = localFont({
 export const metadata: Metadata = {
   title: 'REYA Labs',
   description: 'Websites, platforms & software built for modern businesses.',
-  icons: { icon: '/favicon.svg' },
+  icons: { icon: '/favicon.png' },
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={inter.variable}>
-      <body>{children}</body>
+      <body><a className="skip-link" href="#main-content">Skip to content</a>{children}</body>
     </html>
   );
 }

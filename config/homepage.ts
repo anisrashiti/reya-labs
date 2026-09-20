@@ -6,6 +6,7 @@ export type Project = {
   sector: string;
   image: string | null;
   imageAlt: string;
+  summary: string;
 };
 
 // Replace image: null with /projects/<slug>/preview.webp when screenshots are ready.
@@ -18,6 +19,7 @@ export const projects: Project[] = [
     sector: 'Hospitality',
     image: null,
     imageAlt: 'Villa Ada website preview',
+    summary: 'A website for Villa Ada, in hospitality.',
   },
   {
     slug: 'rub-beton',
@@ -27,6 +29,7 @@ export const projects: Project[] = [
     sector: 'Industrial',
     image: null,
     imageAlt: 'RUB Beton website preview',
+    summary: 'A website for RUB Beton, in the industrial sector.',
   },
   {
     slug: 'mind-nexus',
@@ -36,6 +39,7 @@ export const projects: Project[] = [
     sector: 'Product',
     image: null,
     imageAlt: 'Mind Nexus platform preview',
+    summary: 'A digital platform project for Mind Nexus.',
   },
 ];
 
@@ -59,7 +63,7 @@ export const services = [
     title: 'Custom software',
     description:
       'Tailored software for business problems that off-the-shelf tools cannot solve well.',
-    examples: [],
+    examples: ['Workflow automation', 'Integrations', 'Business systems'],
   },
 ];
 
@@ -85,10 +89,12 @@ export const processSteps = [
     title: 'Launch',
     description: 'We test, refine and put the finished product into the world.',
   },
-  {
-    number: '05',
-    title: 'Support',
-    description:
-      'We stay available for improvements, maintenance and what comes next.',
-  },
 ];
+
+export const studio = {
+  philosophy: ['Built with purpose.', 'Made to matter.'],
+  systemsDescription: 'Behind a simple experience can be a complex system. We connect the people, processes and information that make your business work.',
+  nodes: ['Business', 'Platform', 'Users', 'Operations', 'Data', 'Automation'],
+  support: 'Beyond launch: maintenance, improvements and what comes next.',
+  about: 'REYA Labs is a software studio based in Kosovo. We build websites, platforms and custom software with a focus on clarity, usefulness and careful execution.',
+};
