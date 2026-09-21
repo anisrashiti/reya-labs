@@ -65,7 +65,6 @@ export function Navbar() {
             {label}
           </a>
         ))}
-        <span className="nav-point" aria-hidden="true" />
       </nav>
     </header>
   );
