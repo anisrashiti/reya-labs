@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import { useRef, useState } from 'react';
 import type { FocusEvent, KeyboardEvent } from 'react';
@@ -45,7 +45,7 @@ export function WorkSection() {
   return (
     <section id="work" className="work-section" aria-labelledby="work-heading">
       <div className="work-heading" data-reveal>
-        <SectionLabel number="01">Selected work</SectionLabel>
+        <SectionLabel number="02">Selected work</SectionLabel>
         <h2 id="work-heading">Ideas, made real.</h2>
         <span className="micro">A selection of our work / 01–03</span>
       </div>

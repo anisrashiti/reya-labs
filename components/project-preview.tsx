@@ -1,4 +1,4 @@
-﻿import type { Project } from '@/config/homepage';
+import type { Project } from '@/config/homepage';
 import Image from 'next/image';
 
 export function ProjectPreview({ project }: { project: Project }) {

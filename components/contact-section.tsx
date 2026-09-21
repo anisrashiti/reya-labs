@@ -59,8 +59,14 @@ export function ContactSection() {
         <div className="brand-atmosphere" aria-hidden="true" />
         <SectionLabel number="05">Your next chapter</SectionLabel>
         <h2 id="contact-heading" data-reveal>
-          <span className="contact-question">Something<br />in mind?</span>
-          <a href="#project-form" className="contact-invitation">Let’s build it. <Arrow diagonal /></a>
+          <span className="contact-question">
+            Something
+            <br />
+            in mind?
+          </span>
+          <a href="#project-form" className="contact-invitation">
+            Let&apos;s build it. <Arrow diagonal />
+          </a>
         </h2>
       </div>
       <div className="contact-layout" data-reveal>
@@ -172,7 +178,7 @@ export function ContactSection() {
             type="submit"
             disabled={submitting}
           >
-            {submitting ? 'Sending…' : 'Start a project'}
+            {submitting ? 'Sending...' : 'Start a project'}
             <Arrow />
           </button>
           <output

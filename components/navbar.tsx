@@ -29,9 +29,8 @@ export function Navbar() {
 
   return (
     <header className="navbar">
-      <a href="#main-content" aria-label="REYA Labs home" className="nav-brand">
+      <a href="#main-content" aria-label="REYA home" className="nav-brand">
         <Wordmark className="nav-wordmark" />
-        <span>LABS</span>
       </a>
       <button
         ref={menuButton}

@@ -1,3 +1,37 @@
 import { processSteps, studio } from '@/config/homepage';
 import { SectionLabel } from './section-label';
-export function ProcessSection() { return <section className="home-section process-section" aria-labelledby="process-heading"><div className="process-heading"><SectionLabel number="03">How we work</SectionLabel><h2 id="process-heading">Clear from the start.</h2></div><ol className="process-sequence">{processSteps.map((step,index)=><li className="process-step" key={step.number} data-reveal style={{ '--step-delay': `${index*85}ms` } as React.CSSProperties}><span className="process-number">{step.number}<i aria-hidden="true" /></span><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol><p className="process-support">{studio.support}</p></section>; }
+import { AboutSection } from './about-section';
+
+export function ProcessSection() {
+  return (
+    <section
+      id="about"
+      className="home-section process-section"
+      aria-labelledby="process-heading"
+    >
+      <div className="process-heading">
+        <SectionLabel number="04">How we work / REYA</SectionLabel>
+        <h2 id="process-heading">Clear from the start.</h2>
+      </div>
+      <ol className="process-sequence">
+        {processSteps.map((step, index) => (
+          <li
+            className="process-step"
+            key={step.number}
+            data-reveal
+            style={{ '--step-delay': `${index * 85}ms` } as React.CSSProperties}
+          >
+            <span className="process-number">
+              {step.number}
+              <i aria-hidden="true" />
+            </span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </li>
+        ))}
+      </ol>
+      <p className="process-support">{studio.support}</p>
+      <AboutSection />
+    </section>
+  );
+}

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { PageMotion } from '@/components/page-motion';
 import './globals.css';
 import './homepage.css';
 
@@ -20,8 +21,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body><a className="skip-link" href="#main-content">Skip to content</a>{children}</body>
+    <html lang="en" className={inter.variable} data-scroll-behavior="smooth">
+      <body>
+        <a className="skip-link" href="#main-content">
+          Skip to content
+        </a>
+        {children}
+        <PageMotion />
+      </body>
     </html>
   );
 }

@@ -1,50 +1,54 @@
 'use client';
 
 import { useEffect, useLayoutEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import { Wordmark } from './wordmark';
 
 export function PageMotion() {
-  const seenOnMount = useRef<boolean | null>(null);
+  const pathname = usePathname();
+  const initialPath = useRef(pathname);
+  const navigated = useRef(false);
+  const intro = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    const hero = document.querySelector<HTMLElement>('.hero');
-    if (!hero) return;
+    // The root layout persists through SPA navigation; a new document resets it.
+    // No session storage or paint deadline: even delayed hydration gets the intro.
+    if (pathname !== initialPath.current) navigated.current = true;
+    if (pathname !== '/' || navigated.current || initialPath.current !== '/')
+      return;
+    const screen = intro.current;
+    if (!screen) return;
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
-    let seen = seenOnMount.current ?? false;
-    try {
-      if (seenOnMount.current === null) {
-        seen = sessionStorage.getItem('reya-entrance-seen') === '1';
-        seenOnMount.current = seen;
-      }
-      sessionStorage.setItem('reya-entrance-seen', '1');
-    } catch {
-      /* Storage can be unavailable; the entrance still works. */
-    }
-    // Never cover content already read while a slow connection hydrates the page.
-    const paint = performance.getEntriesByName('first-contentful-paint')[0];
-    const late = paint && performance.now() - paint.startTime > 500;
-    if (
-      !preference.matches &&
-      !window.location.hash &&
-      window.scrollY < 20 &&
-      !late
-    ) {
-      hero.dataset.entrance = seen ? 'quick' : 'full';
+    if (!preference.matches && !window.location.hash && window.scrollY < 20) {
+      screen.hidden = false;
     }
     const finish = () => {
-      delete hero.dataset.entrance;
+      screen.hidden = true;
+    };
+    const onEnd = (event: AnimationEvent) => {
+      if (event.target === screen) finish();
     };
     const timer = window.setTimeout(finish, 1400);
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' || event.key === 'Tab') finish();
+    };
     preference.addEventListener('change', finish);
-    hero.addEventListener('pointerdown', finish);
-    hero.addEventListener('focusin', finish);
+    screen.addEventListener('animationend', onEnd);
+    window.addEventListener('keydown', onKey);
+    window.addEventListener('focusin', finish);
+    window.addEventListener('wheel', finish, { passive: true });
+    window.addEventListener('touchstart', finish, { passive: true });
     return () => {
       window.clearTimeout(timer);
       preference.removeEventListener('change', finish);
-      hero.removeEventListener('pointerdown', finish);
-      hero.removeEventListener('focusin', finish);
+      screen.removeEventListener('animationend', onEnd);
+      window.removeEventListener('keydown', onKey);
+      window.removeEventListener('focusin', finish);
+      window.removeEventListener('wheel', finish);
+      window.removeEventListener('touchstart', finish);
       finish();
     };
-  }, []);
+  }, [pathname]);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -81,6 +85,17 @@ export function PageMotion() {
       preference.removeEventListener('change', setup);
       elements.forEach((element) => element.classList.remove('reveal-pending'));
     };
-  }, []);
-  return null;
+  }, [pathname]);
+  return (
+    <div ref={intro} className="site-intro" hidden aria-hidden="true">
+      <div className="intro-brand">
+        <Wordmark />
+        <span>LABS</span>
+        <div className="intro-loading">
+          <i />
+        </div>
+      </div>
+      <span className="intro-caption">Elevated Systems.</span>
+    </div>
+  );
 }
