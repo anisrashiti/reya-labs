@@ -10,7 +10,7 @@ export function Hero() {
       <Navbar />
       <div className="hero-content">
         <h1 id="hero-heading" className="hero-heading">
-          <span className="sr-only">REYA Labs</span>
+          <span className="sr-only">Reya Labs</span>
           <span className="wordmark-wrap">
             <Wordmark className="hero-wordmark" />
           </span>

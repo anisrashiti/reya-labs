@@ -60,7 +60,7 @@ export const services = [
   },
   {
     number: '03',
-    title: 'Custom software',
+    title: 'Custom Software',
     description:
       'Tailored software for business problems that off-the-shelf tools cannot solve well.',
     examples: ['Workflow automation', 'Integrations', 'Business systems'],
@@ -93,8 +93,10 @@ export const processSteps = [
 
 export const studio = {
   philosophy: ['Built with purpose.', 'Made to matter.'],
-  systemsDescription: 'Behind a simple experience can be a complex system. We connect the people, processes and information that make your business work.',
+  systemsDescription:
+    'Behind a simple experience can be a complex system. We connect the people, processes and information that make your business work.',
   nodes: ['Business', 'Platform', 'Users', 'Operations', 'Data', 'Automation'],
   support: 'Beyond launch: maintenance, improvements and what comes next.',
-  about: 'REYA Labs is a software studio based in Kosovo. We build websites, platforms and custom software with a focus on clarity, usefulness and careful execution.',
+  about:
+    'REYA is an independent software studio. We build websites, platforms and custom software with clear thinking and careful execution.',
 };

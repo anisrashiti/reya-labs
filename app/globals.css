@@ -408,6 +408,9 @@ button[aria-disabled='true'] {
 .site-intro[hidden] {
   display: none;
 }
+html[data-home-navigation='true'] .site-intro {
+  display: none;
+}
 .site-intro {
   position: fixed;
   inset: 0;
@@ -417,6 +420,7 @@ button[aria-disabled='true'] {
   overflow: hidden;
   background: #090909;
   animation: intro-open 1400ms var(--ease) both;
+  pointer-events: none;
 }
 .intro-brand {
   width: min(46vw, 620px);
@@ -486,6 +490,7 @@ button[aria-disabled='true'] {
   }
   100% {
     clip-path: inset(0 0 100%);
+    visibility: hidden;
   }
 }
 @media (max-width: 800px) {

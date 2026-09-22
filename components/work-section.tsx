@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import type { FocusEvent, KeyboardEvent } from 'react';
+import type { FocusEvent, KeyboardEvent, PointerEvent } from 'react';
 import { projects } from '@/config/homepage';
 import { Arrow } from './arrow';
 import { ProjectPreview } from './project-preview';
@@ -11,6 +11,27 @@ export function WorkSection() {
   const [active, setActive] = useState<number | null>(null);
   const selectors = useRef<(HTMLButtonElement | null)[]>([]);
   const pointerFocus = useRef(false);
+
+  function parallax(event: PointerEvent<HTMLDivElement>) {
+    if (
+      event.pointerType !== 'mouse' ||
+      !window.matchMedia(
+        '(min-width: 801px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
+      ).matches
+    )
+      return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const x = Math.max(
+      -1,
+      Math.min(1, ((event.clientX - bounds.left) / bounds.width) * 2 - 1),
+    );
+    const y = Math.max(
+      -1,
+      Math.min(1, ((event.clientY - bounds.top) / bounds.height) * 2 - 1),
+    );
+    event.currentTarget.style.setProperty('--preview-x', `${x * 10}px`);
+    event.currentTarget.style.setProperty('--preview-y', `${y * 10}px`);
+  }
 
   function leaveFocus(event: FocusEvent<HTMLElement>) {
     const list = event.currentTarget.closest('.project-list');
@@ -128,8 +149,23 @@ export function WorkSection() {
                 inert={!open}
               >
                 <div className="project-reveal-surface">
-                  <div className="project-visual">
-                    <ProjectPreview project={project} />
+                  <div
+                    className="project-visual"
+                    onPointerMove={parallax}
+                    onPointerLeave={(event) => {
+                      event.currentTarget.style.setProperty(
+                        '--preview-x',
+                        '0px',
+                      );
+                      event.currentTarget.style.setProperty(
+                        '--preview-y',
+                        '0px',
+                      );
+                    }}
+                  >
+                    <div className="project-parallax">
+                      <ProjectPreview project={project} />
+                    </div>
                   </div>
                   <div className="project-reveal-footer">
                     <span className="micro">

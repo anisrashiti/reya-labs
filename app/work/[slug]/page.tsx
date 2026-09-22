@@ -6,6 +6,7 @@ import { ProjectPreview } from '@/components/project-preview';
 import { Wordmark } from '@/components/wordmark';
 import { Arrow } from '@/components/arrow';
 import { Footer } from '@/components/footer';
+import { siteConfig } from '@/config/site';
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -15,13 +16,28 @@ type Props = { params: Promise<{ slug: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = projects.find((item) => item.slug === slug);
+  if (!project) notFound();
+  const title = `${project.name} — ${siteConfig.name}`;
+  const description = `${project.name} / ${project.category} / ${project.sector}. A selected ${siteConfig.name} project. Full case study to follow.`;
+  const path = `/work/${project.slug}`;
   return {
-    title: project
-      ? `${project.name} — REYA Labs`
-      : 'Project not found — REYA Labs',
-    description: project
-      ? `${project.name} / ${project.category} / ${project.sector}. A selected REYA Labs project. Full case study to follow.`
-      : undefined,
+    title,
+    description,
+    alternates: { canonical: path },
+    openGraph: {
+      type: 'website',
+      url: `${siteConfig.url}${path}`,
+      siteName: siteConfig.name,
+      title,
+      description,
+      images: [siteConfig.socialImage],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [siteConfig.socialImage],
+    },
   };
 }
 

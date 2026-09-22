@@ -1,25 +1,26 @@
 import { processSteps, studio } from '@/config/homepage';
 import { SectionLabel } from './section-label';
-import { AboutSection } from './about-section';
 
 export function ProcessSection() {
   return (
     <section
-      id="about"
+      id="process"
       className="home-section process-section"
       aria-labelledby="process-heading"
     >
       <div className="process-heading">
-        <SectionLabel number="04">How we work / REYA</SectionLabel>
+        <SectionLabel number="04">How we work</SectionLabel>
         <h2 id="process-heading">Clear from the start.</h2>
       </div>
-      <ol className="process-sequence">
+      <ol className="process-sequence" data-reveal>
         {processSteps.map((step, index) => (
           <li
             className="process-step"
             key={step.number}
             data-reveal
-            style={{ '--step-delay': `${index * 85}ms` } as React.CSSProperties}
+            style={
+              { '--step-delay': `${index * 500}ms` } as React.CSSProperties
+            }
           >
             <span className="process-number">
               {step.number}
@@ -31,7 +32,6 @@ export function ProcessSection() {
         ))}
       </ol>
       <p className="process-support">{studio.support}</p>
-      <AboutSection />
     </section>
   );
 }

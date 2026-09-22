@@ -1,8 +1,10 @@
-// Replace these two values when the real contact details and service are ready.
+﻿// Add social links only once the studio's actual profile URLs are available.
 export const contactConfig: {
-  email: string | null;
+  email: string;
   submissionEndpoint: string | null;
+  socials: { label: string; url: string }[];
 } = {
-  email: null,
+  email: 'hello@reyalabs.tech',
   submissionEndpoint: null,
+  socials: [],
 };

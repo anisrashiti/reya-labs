@@ -41,6 +41,24 @@ function Connections({ compact = false }: { compact?: boolean }) {
       fill="none"
       aria-hidden="true"
     >
+      <defs>
+        <mask
+          id={`route-mask-${compact ? 'mobile' : 'desktop'}`}
+          maskUnits="userSpaceOnUse"
+          x="0"
+          y="0"
+          width="100"
+          height="100"
+        >
+          <path
+            className="system-route-draw"
+            d={highlighted}
+            pathLength="1"
+            stroke="white"
+            strokeWidth="4"
+          />
+        </mask>
+      </defs>
       <path
         vectorEffect="non-scaling-stroke"
         d={`M${business[0]} ${business[1]}H${platform[0]}${lead}${branches}`}
@@ -48,6 +66,7 @@ function Connections({ compact = false }: { compact?: boolean }) {
       <path
         vectorEffect="non-scaling-stroke"
         className="system-route"
+        mask={`url(#route-mask-${compact ? 'mobile' : 'desktop'})`}
         d={highlighted}
       />
     </svg>
